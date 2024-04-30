@@ -1,22 +1,23 @@
 const path = require("path");
 const axios = require("axios");
-const qs = require("qs");
 const { sendNotify } = require(path.join(__dirname, "../../sendNotify.js"));
 
 // config
-const config = require(path.join(
-  __dirname,
-  // MODIFY
-  "../scripts/personal/__MODIFY__.js"
-));
+const { url, data } = require("./config.js");
 
-// auth ?
-async function auth() {
-  console.log("alternative: auth");
-}
+start();
 // start
 function start() {
   console.log("start: required");
+  axios
+    .post(url, data)
+    .then((res) => {
+      const { d } = res;
+      notify("花园部落-签到", d.Msg);
+    })
+    .catch((err) => {
+      notify("花园部落-签到失败", err);
+    });
 }
 // send email ?
 async function notify(text, desp) {

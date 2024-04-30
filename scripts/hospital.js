@@ -8,8 +8,8 @@ let times = 0;
 let lock = false;
 const notifyTime = 100;
 const config = require("./config.js");
-const { headers, params, constants, email } = config;
-const auth = email;
+const auth = require("../auth.js");
+const { headers, params, constants } = config;
 const transporter = nodemailer.createTransport({
   host: "smtp." + auth.user.match(/@(.*)/)[1],
   secure: true,
@@ -96,17 +96,4 @@ function start() {
         }
       }
     });
-}
-// send email ?
-async function notify() {
-  return nodemailer.createTransport({
-    host: "smtp." + auth.user.match(/@(.*)/)[1],
-    secure: true,
-    port: 465,
-    auth,
-    tls: {
-      // do not fail on invalid certs
-      rejectUnauthorized: false,
-    },
-  });
 }
