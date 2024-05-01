@@ -1,6 +1,5 @@
 const path = require("path");
 const axios = require("axios");
-const qs = require("qs");
 const { sendNotify } = require(path.join(__dirname, "../../sendNotify.js"));
 
 // config
@@ -15,6 +14,7 @@ async function auth() {
   console.log("alternative: auth");
 }
 // start
+start();
 function start() {
   console.log("start: required");
 }

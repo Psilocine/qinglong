@@ -3,20 +3,20 @@ const axios = require("axios");
 const { sendNotify } = require(path.join(__dirname, "../../sendNotify.js"));
 
 // config
-const { url, data } = require("./config.js");
+const { url, headers, data } = require("./config.js");
 
 // start
 start();
 function start() {
   console.log("start: required");
   axios
-    .post(url, data)
+    .post(url, data, { headers })
     .then((res) => {
-      const { d } = res;
-      notify("花园部落-签到", d.Msg);
+      const { data } = res.data;
+      notify("霸王茶姬-签到", `${data.rewardDetailList[0].sendNum}积分`);
     })
     .catch((err) => {
-      notify("花园部落-签到失败", err);
+      notify("霸王茶姬-签到失败", err);
     });
 }
 // send email ?
